@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Princesa Mariposa - Lupe Edition</title>
+<title>El Jardin Magico - Lupe Edition</title>
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body {
@@ -58,7 +58,7 @@ canvas { display: block; }
 .card {
   background: linear-gradient(145deg, #fff 0%, #fce4ec 100%);
   border-radius: 24px; padding: 30px 40px; text-align: center;
-  max-width: 380px; width: 90%; margin: auto;
+  max-width: 400px; width: 90%; margin: auto;
   box-shadow: 0 8px 32px rgba(233,30,99,0.2);
   border: 3px solid rgba(233,30,99,0.15);
 }
@@ -69,8 +69,7 @@ canvas { display: block; }
 .card button {
   margin: 6px; padding: 14px 36px; border: none; border-radius: 50px;
   font-size: 20px; font-weight: bold; cursor: pointer; color: #fff;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-  transition: transform 0.15s;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15); transition: transform 0.15s;
 }
 .card button:active { transform: scale(0.95); }
 .btn-play { background: linear-gradient(135deg, #e91e63, #ad1457); }
@@ -80,13 +79,10 @@ canvas { display: block; }
 .card .stats span { color: #e91e63; font-weight: bold; }
 
 /* ===== Closet ===== */
-#closet-overlay .card { max-width: 440px; }
+#closet-overlay .card { max-width: 460px; }
 .closet-section { margin: 12px 0; }
 .closet-section h3 { color: #9c27b0; font-size: 15px; margin-bottom: 8px; }
-.closet-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-}
+.closet-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
 .closet-item {
   background: rgba(233,30,99,0.06); border-radius: 14px;
   padding: 10px 6px; border: 2px solid rgba(233,30,99,0.1);
@@ -100,19 +96,13 @@ canvas { display: block; }
 .closet-item .ci-cost { font-size: 10px; color: #e91e63; }
 
 /* ===== Start screen ===== */
-#start-overlay {
-  background: linear-gradient(135deg, #fce4ec, #f3e5f5, #e8eaf6);
-}
+#start-overlay { background: linear-gradient(135deg, #fce4ec, #f3e5f5, #e8eaf6); }
 #start-overlay .card { background: transparent; border: none; box-shadow: none; }
-#start-overlay h1 { font-size: 36px; }
-#start-overlay .big-icon { font-size: 80px; }
-.start-instructions {
-  display: flex; gap: 16px; justify-content: center; margin: 16px 0;
-}
-.start-step {
-  text-align: center; font-size: 12px; color: #777;
-}
-.start-step .step-icon { font-size: 32px; margin-bottom: 4px; }
+#start-overlay h1 { font-size: 34px; }
+#start-overlay .big-icon { font-size: 70px; }
+.start-instructions { display: flex; gap: 12px; justify-content: center; margin: 16px 0; flex-wrap: wrap; }
+.start-step { text-align: center; font-size: 11px; color: #777; width: 70px; }
+.start-step .step-icon { font-size: 28px; margin-bottom: 4px; }
 
 /* ===== Mobile ===== */
 @media (max-width: 500px) {
@@ -126,7 +116,6 @@ canvas { display: block; }
 </style>
 </head>
 <body>
-
 <canvas id="game"></canvas>
 
 <!-- HUD -->
@@ -143,12 +132,13 @@ canvas { display: block; }
 <!-- Start screen -->
 <div class="overlay show" id="start-overlay">
   <div class="card">
-    <div class="big-icon">🦋👸🦋</div>
-    <h1>Princesa Mariposa</h1>
+    <div class="big-icon">🌸👸🦋</div>
+    <h1>El Jardin Magico<br>de la Princesa</h1>
     <div class="sub">Lupe Edition</div>
     <div class="start-instructions">
-      <div class="start-step"><div class="step-icon">👆</div>Toca las<br>mariposas</div>
-      <div class="start-step"><div class="step-icon">⭐</div>Gana<br>puntos</div>
+      <div class="start-step"><div class="step-icon">🦋</div>Atrapa<br>mariposas</div>
+      <div class="start-step"><div class="step-icon">🌸</div>Toca<br>flores</div>
+      <div class="start-step"><div class="step-icon">🐞</div>Caza<br>mariquitas</div>
       <div class="start-step"><div class="step-icon">👗</div>Viste a la<br>princesa</div>
     </div>
     <button class="btn-play" onclick="startGame()">JUGAR</button>
@@ -160,7 +150,7 @@ canvas { display: block; }
   <div class="card">
     <div class="big-icon" id="go-icon">🎉</div>
     <h2 id="go-title">Muy bien!</h2>
-    <div class="stats">Mariposas: <span id="go-caught">0</span></div>
+    <div class="stats">Mariposas: <span id="go-caught">0</span> | Flores: <span id="go-flowers">0</span> | Mariquitas: <span id="go-bugs">0</span></div>
     <div class="stats">Puntos: <span id="go-score">0</span></div>
     <div class="stats">Monedas ganadas: <span id="go-coins">0</span></div>
     <button class="btn-play" onclick="startGame()">Otra vez!</button>
@@ -171,7 +161,7 @@ canvas { display: block; }
 <!-- Closet -->
 <div class="overlay overlay-bg" id="closet-overlay">
   <div class="card">
-    <h2>👗 Vestidor de la Princesa</h2>
+    <h2>👗 Vestidor y Jardin</h2>
     <div class="sub">Monedas: <span id="closet-coins" style="color:#e91e63;font-weight:bold">0</span></div>
     <div id="closet-content"></div>
     <button class="btn-ok" onclick="closeCloset()">Cerrar</button>
@@ -200,40 +190,45 @@ function playTone(freq, dur, type = 'sine', vol = 0.08) {
   g.gain.exponentialRampToValueAtTime(0.001, t + dur);
   o.start(t); o.stop(t + dur);
 }
-function sfxCatch() {
-  playTone(880, 0.12); setTimeout(() => playTone(1100, 0.12), 60);
-  setTimeout(() => playTone(1320, 0.15), 120);
-}
-function sfxSpecial() {
-  playTone(660, 0.1); setTimeout(() => playTone(880, 0.1), 80);
-  setTimeout(() => playTone(1100, 0.1), 160);
-  setTimeout(() => playTone(1320, 0.15), 240);
-  setTimeout(() => playTone(1540, 0.2), 320);
-}
-function sfxMiss() { playTone(300, 0.15, 'triangle', 0.04); }
-function sfxUnlock() {
-  [660,880,1100,1320,1540].forEach((f,i) => setTimeout(() => playTone(f, 0.15, 'sine', 0.1), i*100));
-}
+function sfxCatch() { playTone(880,.12); setTimeout(()=>playTone(1100,.12),60); setTimeout(()=>playTone(1320,.15),120); }
+function sfxSpecial() { [660,880,1100,1320,1540].forEach((f,i)=>setTimeout(()=>playTone(f,.12),i*70)); }
+function sfxFlower() { playTone(1200,.1,'sine',.06); setTimeout(()=>playTone(1400,.1,'sine',.06),80); }
+function sfxLadybug() { playTone(500,.08,'triangle',.1); setTimeout(()=>playTone(700,.08),60); setTimeout(()=>playTone(900,.12),120); setTimeout(()=>playTone(1100,.15),180); }
+function sfxUnlock() { [660,880,1100,1320,1540].forEach((f,i)=>setTimeout(()=>playTone(f,.15,'sine',.1),i*100)); }
+
+// ============ GARDEN THEMES ============
+const THEMES = [
+  { id: 'default', cat: 'garden', name: 'Primavera', icon: '🌸', cost: 0, owned: true, active: true,
+    sky: ['#e1bee7','#f8bbd0','#c8e6c9','#81c784'], ground: ['#a5d6a7','#81c784'],
+    cloud: 'rgba(255,255,255,0.5)', sun: true, moon: false, snow: false, rainbow: false },
+  { id: 'night', cat: 'garden', name: 'Noche', icon: '🌙', cost: 40, owned: false, active: false,
+    sky: ['#1a237e','#283593','#3949ab','#1b5e20'], ground: ['#2e7d32','#1b5e20'],
+    cloud: 'rgba(200,200,255,0.15)', sun: false, moon: true, snow: false, rainbow: false },
+  { id: 'rainbow', cat: 'garden', name: 'Arcoiris', icon: '🌈', cost: 60, owned: false, active: false,
+    sky: ['#ff8a80','#ffcc80','#fff59d','#a5d6a7','#80d8ff','#ce93d8'], ground: ['#a5d6a7','#81c784'],
+    cloud: 'rgba(255,255,255,0.6)', sun: true, moon: false, snow: false, rainbow: true },
+  { id: 'winter', cat: 'garden', name: 'Invierno', icon: '❄️', cost: 80, owned: false, active: false,
+    sky: ['#cfd8dc','#b0bec5','#90a4ae','#e0e0e0'], ground: ['#e0e0e0','#fafafa'],
+    cloud: 'rgba(255,255,255,0.7)', sun: false, moon: false, snow: true, rainbow: false },
+];
+
+function activeTheme() { return THEMES.find(t => t.active) || THEMES[0]; }
 
 // ============ WARDROBE ITEMS ============
 const ITEMS = [
-  // Dresses
   { id: 'dress_pink', cat: 'dress', name: 'Rosa', icon: '👗', color: '#e91e63', cost: 0, owned: true, active: true },
   { id: 'dress_blue', cat: 'dress', name: 'Azul', icon: '👗', color: '#2196f3', cost: 15, owned: false, active: false },
   { id: 'dress_purple', cat: 'dress', name: 'Morado', icon: '👗', color: '#9c27b0', cost: 25, owned: false, active: false },
   { id: 'dress_gold', cat: 'dress', name: 'Dorado', icon: '👗', color: '#ffc107', cost: 50, owned: false, active: false },
   { id: 'dress_rainbow', cat: 'dress', name: 'Arcoiris', icon: '👗', color: 'rainbow', cost: 100, owned: false, active: false },
-  // Crowns
   { id: 'crown_none', cat: 'crown', name: 'Ninguna', icon: '  ', color: '', cost: 0, owned: true, active: true },
   { id: 'crown_silver', cat: 'crown', name: 'Plata', icon: '👑', color: '#bdbdbd', cost: 20, owned: false, active: false },
   { id: 'crown_gold', cat: 'crown', name: 'Oro', icon: '👑', color: '#ffd700', cost: 40, owned: false, active: false },
   { id: 'crown_diamond', cat: 'crown', name: 'Diamante', icon: '💎', color: '#80deea', cost: 80, owned: false, active: false },
-  // Wands
   { id: 'wand_none', cat: 'wand', name: 'Ninguna', icon: '  ', color: '', cost: 0, owned: true, active: true },
   { id: 'wand_star', cat: 'wand', name: 'Estrella', icon: '⭐', color: '#ffd700', cost: 15, owned: false, active: false },
   { id: 'wand_heart', cat: 'wand', name: 'Corazon', icon: '💖', color: '#e91e63', cost: 30, owned: false, active: false },
   { id: 'wand_magic', cat: 'wand', name: 'Magica', icon: '🪄', color: '#9c27b0', cost: 60, owned: false, active: false },
-  // Wings
   { id: 'wings_none', cat: 'wings', name: 'Ninguna', icon: '  ', color: '', cost: 0, owned: true, active: true },
   { id: 'wings_fairy', cat: 'wings', name: 'Hada', icon: '🧚', color: '#ce93d8', cost: 35, owned: false, active: false },
   { id: 'wings_angel', cat: 'wings', name: 'Angel', icon: '😇', color: '#fff9c4', cost: 70, owned: false, active: false },
@@ -241,13 +236,16 @@ const ITEMS = [
 
 function activeItem(cat) { return ITEMS.find(i => i.cat === cat && i.active) || ITEMS.find(i => i.cat === cat); }
 
-// ============ BUTTERFLY TYPES ============
+// ============ CREATURE TYPES ============
 const BF_TYPES = [
-  { name: 'comun', points: 1, speed: 1, size: 1, colors: ['#e91e63','#f48fb1'], chance: 0.45 },
-  { name: 'azul', points: 2, speed: 1.2, size: 1, colors: ['#2196f3','#90caf9'], chance: 0.25 },
-  { name: 'verde', points: 2, speed: 0.8, size: 1.2, colors: ['#4caf50','#a5d6a7'], chance: 0.15 },
-  { name: 'dorada', points: 5, speed: 1.5, size: 0.9, colors: ['#ffc107','#fff176'], chance: 0.1 },
-  { name: 'arcoiris', points: 10, speed: 2, size: 1.3, colors: ['#e91e63','#ff9800','#ffeb3b','#4caf50','#2196f3','#9c27b0'], chance: 0.05 },
+  { kind: 'butterfly', name: 'comun', points: 1, speed: 1, size: 1, colors: ['#e91e63','#f48fb1'], chance: 0.35 },
+  { kind: 'butterfly', name: 'azul', points: 2, speed: 1.3, size: 1, colors: ['#2196f3','#90caf9'], chance: 0.2 },
+  { kind: 'butterfly', name: 'verde', points: 2, speed: 0.9, size: 1.2, colors: ['#4caf50','#a5d6a7'], chance: 0.12 },
+  { kind: 'butterfly', name: 'dorada', points: 5, speed: 1.8, size: 0.9, colors: ['#ffc107','#fff176'], chance: 0.08 },
+  { kind: 'butterfly', name: 'arcoiris', points: 10, speed: 2.5, size: 1.3, colors: ['#e91e63','#ff9800','#ffeb3b','#4caf50','#2196f3','#9c27b0'], chance: 0.03 },
+  { kind: 'butterfly', name: 'cristal', points: 15, speed: 3, size: 1.1, colors: ['#80deea','#b2ebf2','#e0f7fa'], chance: 0.02 },
+  { kind: 'ladybug', name: 'mariquita', points: 3, speed: 0.6, size: 1, colors: ['#f44336','#000'], chance: 0.1 },
+  { kind: 'ladybug', name: 'mariquita_oro', points: 8, speed: 1, size: 1.1, colors: ['#ffc107','#000'], chance: 0.05 },
 ];
 
 function pickType() {
@@ -259,36 +257,34 @@ function pickType() {
 // ============ GAME STATE ============
 let G = {
   phase: 'start',
-  score: 0, coins: 0, totalCoins: 0,
+  score: 0, totalCoins: 0,
   timer: 45, maxTime: 45,
-  butterflies: [], particles: [], floatingTexts: [],
+  creatures: [], particles: [], floatingTexts: [],
   combo: 0, comboTimer: 0,
-  caught: 0,
-  // Garden elements
+  caught: 0, flowersCaught: 0, bugsCaught: 0,
   flowers: [], sparkles: [],
+  magicFlowers: [], // tappable magic flowers
+  snowflakes: [], // for winter theme
 };
 
 // ============ INIT ============
 function initRound() {
   G.phase = 'playing';
-  G.score = 0; G.caught = 0;
+  G.score = 0; G.caught = 0; G.flowersCaught = 0; G.bugsCaught = 0;
   G.timer = G.maxTime;
-  G.butterflies = [];
-  G.particles = [];
-  G.floatingTexts = [];
+  G.creatures = []; G.particles = []; G.floatingTexts = [];
   G.combo = 0; G.comboTimer = 0;
+  G.magicFlowers = [];
 
-  // Spawn initial butterflies
-  for (let i = 0; i < 6; i++) spawnButterfly();
+  for (let i = 0; i < 6; i++) spawnCreature();
 
-  // Generate flowers
+  // Decorative flowers
   G.flowers = [];
   for (let i = 0; i < 12; i++) {
     G.flowers.push({
       x: 40 + Math.random() * (C.width - 80),
-      y: C.height - 30 - Math.random() * 60,
-      type: Math.floor(Math.random() * 4),
-      size: 0.7 + Math.random() * 0.6,
+      y: C.height - 30 - Math.random() * 55,
+      type: Math.floor(Math.random() * 4), size: 0.7 + Math.random() * 0.6,
       sway: Math.random() * Math.PI * 2,
     });
   }
@@ -297,32 +293,58 @@ function initRound() {
   G.sparkles = [];
   for (let i = 0; i < 20; i++) {
     G.sparkles.push({
-      x: Math.random() * C.width,
-      y: Math.random() * C.height * 0.7,
-      size: 1 + Math.random() * 2,
-      speed: 0.3 + Math.random() * 0.5,
+      x: Math.random() * C.width, y: Math.random() * C.height * 0.7,
+      size: 1 + Math.random() * 2, speed: 0.3 + Math.random() * 0.5,
       phase: Math.random() * Math.PI * 2,
     });
+  }
+
+  // Snowflakes for winter
+  G.snowflakes = [];
+  if (activeTheme().snow) {
+    for (let i = 0; i < 50; i++) {
+      G.snowflakes.push({
+        x: Math.random() * C.width, y: Math.random() * C.height,
+        size: 1 + Math.random() * 3, speed: 15 + Math.random() * 25,
+        drift: Math.random() * Math.PI * 2,
+      });
+    }
   }
 
   updateHUD();
 }
 
-function spawnButterfly() {
+function spawnCreature() {
   const t = pickType();
   const margin = 60;
-  G.butterflies.push({
+  G.creatures.push({
     x: margin + Math.random() * (C.width - margin * 2),
-    y: margin + Math.random() * (C.height * 0.6 - margin),
-    type: t,
-    angle: Math.random() * Math.PI * 2,
+    y: margin + Math.random() * (C.height * 0.55 - margin),
+    type: t, angle: Math.random() * Math.PI * 2,
     wingPhase: Math.random() * Math.PI * 2,
     wobble: Math.random() * Math.PI * 2,
-    baseSpeed: 30 + Math.random() * 20,
+    baseSpeed: 25 + Math.random() * 20,
     turnTimer: 1 + Math.random() * 2,
-    scale: t.size,
-    alive: true,
-    flash: 0,
+    scale: t.size, alive: true, flash: 1,
+  });
+}
+
+function spawnMagicFlower() {
+  if (G.magicFlowers.length >= 3) return;
+  const types = [
+    { icon: '🌸', points: 3, color: '#f48fb1', name: 'Flor Rosa' },
+    { icon: '🌺', points: 5, color: '#e91e63', name: 'Hibisco' },
+    { icon: '🌻', points: 4, color: '#ffc107', name: 'Girasol' },
+    { icon: '💮', points: 7, color: '#ce93d8', name: 'Flor Magica' },
+    { icon: '🌷', points: 3, color: '#ef5350', name: 'Tulipan' },
+  ];
+  const ft = types[Math.floor(Math.random() * types.length)];
+  G.magicFlowers.push({
+    x: 60 + Math.random() * (C.width - 120),
+    y: C.height * 0.55 + Math.random() * (C.height * 0.2),
+    ...ft, life: 4 + Math.random() * 3, // disappears after this
+    scale: 0, maxScale: 1, growing: true,
+    sparklePhase: Math.random() * Math.PI * 2,
   });
 }
 
@@ -336,80 +358,165 @@ function updateHUD() {
 
 // ============ DRAWING ============
 function drawBackground() {
-  // Sky gradient
+  const theme = activeTheme();
   const grad = X.createLinearGradient(0, 0, 0, C.height);
-  grad.addColorStop(0, '#e1bee7');
-  grad.addColorStop(0.3, '#f8bbd0');
-  grad.addColorStop(0.6, '#c8e6c9');
-  grad.addColorStop(1, '#81c784');
+  const stops = theme.sky;
+  stops.forEach((c, i) => grad.addColorStop(i / (stops.length - 1), c));
   X.fillStyle = grad;
   X.fillRect(0, 0, C.width, C.height);
 
-  // Soft clouds
-  X.fillStyle = 'rgba(255,255,255,0.5)';
+  // Clouds
+  X.fillStyle = theme.cloud;
   const t = Date.now() / 8000;
   for (let i = 0; i < 4; i++) {
     const cx = ((i * 250 + t * 40) % (C.width + 200)) - 100;
     const cy = 50 + i * 35;
-    X.beginPath();
-    X.ellipse(cx, cy, 60 + i * 10, 20, 0, 0, Math.PI * 2); X.fill();
-    X.beginPath();
-    X.ellipse(cx - 30, cy + 5, 35, 15, 0, 0, Math.PI * 2); X.fill();
-    X.beginPath();
-    X.ellipse(cx + 35, cy + 3, 30, 14, 0, 0, Math.PI * 2); X.fill();
+    X.beginPath(); X.ellipse(cx, cy, 60 + i * 10, 20, 0, 0, Math.PI * 2); X.fill();
+    X.beginPath(); X.ellipse(cx - 30, cy + 5, 35, 15, 0, 0, Math.PI * 2); X.fill();
+    X.beginPath(); X.ellipse(cx + 35, cy + 3, 30, 14, 0, 0, Math.PI * 2); X.fill();
   }
 
   // Sun
-  X.fillStyle = '#fff9c4';
-  X.beginPath(); X.arc(C.width - 70, 60, 35, 0, Math.PI * 2); X.fill();
-  X.fillStyle = '#fff176';
-  X.beginPath(); X.arc(C.width - 70, 60, 26, 0, Math.PI * 2); X.fill();
-
-  // Rolling hills
-  X.fillStyle = '#a5d6a7';
-  X.beginPath();
-  X.moveTo(0, C.height - 80);
-  for (let x = 0; x <= C.width; x += 5) {
-    X.lineTo(x, C.height - 80 + Math.sin(x / 120) * 15 + Math.sin(x / 50) * 5);
+  if (theme.sun) {
+    X.fillStyle = '#fff9c4';
+    X.beginPath(); X.arc(C.width - 70, 60, 35, 0, Math.PI * 2); X.fill();
+    X.fillStyle = '#fff176';
+    X.beginPath(); X.arc(C.width - 70, 60, 26, 0, Math.PI * 2); X.fill();
+    // Rays
+    X.strokeStyle = 'rgba(255,241,118,0.3)'; X.lineWidth = 2;
+    for (let i = 0; i < 8; i++) {
+      const a = i * Math.PI / 4 + Date.now() / 4000;
+      X.beginPath();
+      X.moveTo(C.width - 70 + Math.cos(a) * 36, 60 + Math.sin(a) * 36);
+      X.lineTo(C.width - 70 + Math.cos(a) * 48, 60 + Math.sin(a) * 48);
+      X.stroke();
+    }
   }
+
+  // Moon
+  if (theme.moon) {
+    X.fillStyle = '#fff9c4';
+    X.beginPath(); X.arc(C.width - 70, 55, 25, 0, Math.PI * 2); X.fill();
+    X.fillStyle = theme.sky[0];
+    X.beginPath(); X.arc(C.width - 60, 48, 20, 0, Math.PI * 2); X.fill();
+    // Stars
+    X.fillStyle = '#fff';
+    for (let i = 0; i < 30; i++) {
+      const sx = (i * 137.5 + 50) % C.width;
+      const sy = (i * 97.3 + 10) % (C.height * 0.4);
+      X.globalAlpha = 0.3 + Math.sin(Date.now() / 400 + i) * 0.3;
+      X.fillRect(sx, sy, 1.5, 1.5);
+    }
+    X.globalAlpha = 1;
+  }
+
+  // Rainbow
+  if (theme.rainbow) {
+    const rc = ['#e91e63','#ff9800','#ffeb3b','#4caf50','#2196f3','#9c27b0'];
+    rc.forEach((c, i) => {
+      X.strokeStyle = c; X.lineWidth = 4; X.globalAlpha = 0.35;
+      X.beginPath();
+      X.arc(C.width * 0.35, C.height * 0.6, 200 + i * 8, Math.PI * 1.1, Math.PI * 1.9);
+      X.stroke();
+    });
+    X.globalAlpha = 1;
+  }
+
+  // Hills
+  X.fillStyle = theme.ground[0];
+  X.beginPath(); X.moveTo(0, C.height - 80);
+  for (let x = 0; x <= C.width; x += 5)
+    X.lineTo(x, C.height - 80 + Math.sin(x / 120) * 15 + Math.sin(x / 50) * 5);
   X.lineTo(C.width, C.height); X.lineTo(0, C.height); X.fill();
 
   // Ground
-  X.fillStyle = '#81c784';
+  X.fillStyle = theme.ground[1];
   X.fillRect(0, C.height - 50, C.width, 50);
+
+  // Snow on ground
+  if (theme.snow) {
+    X.fillStyle = 'rgba(255,255,255,0.5)';
+    X.fillRect(0, C.height - 50, C.width, 50);
+  }
+}
+
+function drawSnowflakes(dt) {
+  const theme = activeTheme();
+  if (!theme.snow) return;
+  X.fillStyle = '#fff';
+  G.snowflakes.forEach(s => {
+    s.y += s.speed * dt;
+    s.x += Math.sin(Date.now() / 1000 + s.drift) * 0.5;
+    if (s.y > C.height) { s.y = -5; s.x = Math.random() * C.width; }
+    X.globalAlpha = 0.6;
+    X.beginPath(); X.arc(s.x, s.y, s.size, 0, Math.PI * 2); X.fill();
+  });
+  X.globalAlpha = 1;
 }
 
 function drawFlowers() {
   const t = Date.now() / 1000;
+  const theme = activeTheme();
   G.flowers.forEach(f => {
     const sway = Math.sin(t + f.sway) * 3;
     X.save();
     X.translate(f.x + sway, f.y);
     X.scale(f.size, f.size);
-
-    // Stem
-    X.strokeStyle = '#4caf50';
-    X.lineWidth = 2;
+    X.strokeStyle = theme.snow ? '#78909c' : '#4caf50'; X.lineWidth = 2;
     X.beginPath(); X.moveTo(0, 0); X.lineTo(0, 20); X.stroke();
-
-    // Leaves
-    X.fillStyle = '#66bb6a';
+    X.fillStyle = theme.snow ? '#90a4ae' : '#66bb6a';
     X.beginPath(); X.ellipse(-6, 12, 5, 3, -0.4, 0, Math.PI * 2); X.fill();
-    X.beginPath(); X.ellipse(6, 15, 5, 3, 0.4, 0, Math.PI * 2); X.fill();
-
-    // Petals
-    const colors = ['#f48fb1', '#ce93d8', '#fff176', '#ef9a9a'];
-    const col = colors[f.type];
+    const colors = theme.snow ? ['#b0bec5','#cfd8dc','#eceff1','#90a4ae'] : ['#f48fb1','#ce93d8','#fff176','#ef9a9a'];
+    X.fillStyle = colors[f.type];
     for (let i = 0; i < 5; i++) {
       const a = (i / 5) * Math.PI * 2 + t * 0.2;
-      X.fillStyle = col;
-      X.beginPath();
-      X.ellipse(Math.cos(a) * 6, -4 + Math.sin(a) * 6, 5, 3, a, 0, Math.PI * 2);
-      X.fill();
+      X.beginPath(); X.ellipse(Math.cos(a)*6, -4+Math.sin(a)*6, 5, 3, a, 0, Math.PI*2); X.fill();
     }
-    // Center
-    X.fillStyle = '#ffeb3b';
+    X.fillStyle = theme.snow ? '#fff' : '#ffeb3b';
     X.beginPath(); X.arc(0, -4, 4, 0, Math.PI * 2); X.fill();
+    X.restore();
+  });
+}
+
+function drawMagicFlowers() {
+  const t = Date.now() / 1000;
+  G.magicFlowers.forEach(mf => {
+    if (mf.scale <= 0) return;
+    X.save();
+    X.translate(mf.x, mf.y);
+    X.scale(mf.scale, mf.scale);
+
+    // Glow circle
+    const pulse = 0.7 + Math.sin(t * 4 + mf.sparklePhase) * 0.3;
+    X.globalAlpha = 0.25 * pulse;
+    const glow = X.createRadialGradient(0, 0, 0, 0, 0, 35);
+    glow.addColorStop(0, mf.color);
+    glow.addColorStop(1, 'transparent');
+    X.fillStyle = glow;
+    X.beginPath(); X.arc(0, 0, 35, 0, Math.PI * 2); X.fill();
+    X.globalAlpha = 1;
+
+    // Flower icon
+    X.font = '36px sans-serif';
+    X.textAlign = 'center'; X.textBaseline = 'middle';
+    X.fillText(mf.icon, 0, 0);
+
+    // Sparkle ring
+    X.fillStyle = '#fff';
+    for (let i = 0; i < 6; i++) {
+      const a = t * 2 + i * Math.PI / 3 + mf.sparklePhase;
+      const r = 22 + Math.sin(t * 3 + i) * 4;
+      X.globalAlpha = 0.5 + Math.sin(t * 4 + i) * 0.3;
+      X.fillRect(Math.cos(a) * r - 1, Math.sin(a) * r - 1, 2, 2);
+    }
+    X.globalAlpha = 1;
+
+    // Points indicator
+    X.font = 'bold 12px sans-serif';
+    X.fillStyle = mf.color;
+    X.strokeStyle = '#fff'; X.lineWidth = 2;
+    X.strokeText(`+${mf.points}`, 0, -24);
+    X.fillText(`+${mf.points}`, 0, -24);
 
     X.restore();
   });
@@ -417,22 +524,23 @@ function drawFlowers() {
 
 function drawSparkles() {
   const t = Date.now() / 1000;
+  const theme = activeTheme();
+  const col = theme.moon ? '#fff9c4' : '#fff';
   G.sparkles.forEach(s => {
     const alpha = 0.3 + Math.sin(t * 2 + s.phase) * 0.3;
     const y = s.y + Math.sin(t * s.speed + s.phase) * 10;
     X.globalAlpha = alpha;
-    X.fillStyle = '#fff';
-
-    // Star shape
+    X.fillStyle = col;
     const sz = s.size + Math.sin(t * 3 + s.phase) * 0.5;
-    X.fillRect(s.x - sz / 2, y - 0.5, sz, 1);
-    X.fillRect(s.x - 0.5, y - sz / 2, 1, sz);
-
-    X.globalAlpha = 1;
+    X.fillRect(s.x - sz/2, y - 0.5, sz, 1);
+    X.fillRect(s.x - 0.5, y - sz/2, 1, sz);
   });
+  X.globalAlpha = 1;
 }
 
-function drawButterfly(b) {
+function drawCreature(b) {
+  if (b.type.kind === 'ladybug') return drawLadybug(b);
+  // Butterfly drawing
   const t = Date.now() / 1000;
   const wingFlap = Math.sin(t * 8 + b.wingPhase);
   const colors = b.type.colors;
@@ -441,91 +549,133 @@ function drawButterfly(b) {
   X.save();
   X.translate(b.x, b.y);
 
-  // Glow for special types
+  // Glow for rare types
   if (b.type.points >= 5) {
+    const glowCol = b.type.points >= 15 ? 'rgba(128,222,234,' : b.type.points >= 10 ? 'rgba(255,215,0,' : 'rgba(255,193,7,';
+    const glow = X.createRadialGradient(0, 0, 0, 0, 0, sz * 2.5);
+    glow.addColorStop(0, glowCol + '0.35)');
+    glow.addColorStop(1, glowCol + '0)');
+    X.fillStyle = glow;
+    X.beginPath(); X.arc(0, 0, sz * 2.5, 0, Math.PI * 2); X.fill();
+  }
+
+  if (b.flash > 0) X.globalAlpha = 0.5 + b.flash * 0.5;
+
+  // Wings (left & right)
+  const wingA = wingFlap * 0.6;
+  for (const dir of [1, -1]) {
+    X.save();
+    X.scale(dir * Math.cos(wingA), 1);
+    if (colors.length > 2) {
+      const wg = X.createLinearGradient(-sz, -sz/2, 0, sz/2);
+      colors.forEach((c, i) => wg.addColorStop(i / (colors.length - 1), c));
+      X.fillStyle = wg;
+    } else { X.fillStyle = colors[0]; }
+    X.beginPath(); X.moveTo(0, 0);
+    X.bezierCurveTo(-sz*.8, -sz, -sz*1.2, -sz*.3, -sz, sz*.2);
+    X.bezierCurveTo(-sz*.6, sz*.5, -sz*.2, sz*.3, 0, 0); X.fill();
+    X.fillStyle = colors.length > 1 ? colors[1] : 'rgba(255,255,255,0.3)';
+    X.beginPath(); X.arc(-sz*.5, -sz*.2, sz*.25, 0, Math.PI*2); X.fill();
+    X.fillStyle = 'rgba(255,255,255,0.4)';
+    X.beginPath(); X.arc(-sz*.3, -sz*.5, sz*.15, 0, Math.PI*2); X.fill();
+    X.restore();
+  }
+
+  // Body
+  X.fillStyle = '#5d4037';
+  X.beginPath(); X.ellipse(0, 0, 2, sz*.35, 0, 0, Math.PI*2); X.fill();
+  X.fillStyle = '#4e342e';
+  X.beginPath(); X.arc(0, -sz*.35, 2.5, 0, Math.PI*2); X.fill();
+
+  // Antennae
+  X.strokeStyle = '#4e342e'; X.lineWidth = 1;
+  X.beginPath(); X.moveTo(-1, -sz*.4); X.quadraticCurveTo(-6, -sz*.7, -4, -sz*.8); X.stroke();
+  X.beginPath(); X.moveTo(1, -sz*.4); X.quadraticCurveTo(6, -sz*.7, 4, -sz*.8); X.stroke();
+  X.fillStyle = colors[0];
+  X.beginPath(); X.arc(-4, -sz*.8, 1.5, 0, Math.PI*2); X.fill();
+  X.beginPath(); X.arc(4, -sz*.8, 1.5, 0, Math.PI*2); X.fill();
+
+  // Points badge for valuable ones
+  if (b.type.points >= 5) {
+    X.font = 'bold 10px sans-serif'; X.textAlign = 'center';
+    X.fillStyle = '#fff'; X.strokeStyle = 'rgba(0,0,0,0.4)'; X.lineWidth = 2;
+    X.strokeText(`+${b.type.points}`, 0, sz * 0.6);
+    X.fillText(`+${b.type.points}`, 0, sz * 0.6);
+  }
+
+  X.globalAlpha = 1;
+  X.restore();
+}
+
+function drawLadybug(b) {
+  const t = Date.now() / 1000;
+  const sz = 12 * b.scale;
+  const isGold = b.type.name === 'mariquita_oro';
+
+  X.save();
+  X.translate(b.x, b.y);
+
+  // Glow for gold ladybug
+  if (isGold) {
     const glow = X.createRadialGradient(0, 0, 0, 0, 0, sz * 2);
-    glow.addColorStop(0, 'rgba(255,215,0,0.25)');
-    glow.addColorStop(1, 'rgba(255,215,0,0)');
+    glow.addColorStop(0, 'rgba(255,193,7,0.3)');
+    glow.addColorStop(1, 'rgba(255,193,7,0)');
     X.fillStyle = glow;
     X.beginPath(); X.arc(0, 0, sz * 2, 0, Math.PI * 2); X.fill();
   }
 
-  // Flash when appearing
-  if (b.flash > 0) {
-    X.globalAlpha = 0.5 + b.flash * 0.5;
-  }
-
-  // Wings
-  const wingAngle = wingFlap * 0.6;
-
-  // Left wing
-  X.save();
-  X.scale(Math.cos(wingAngle), 1);
-  if (colors.length > 2) {
-    // Rainbow gradient
-    const wg = X.createLinearGradient(-sz, -sz/2, 0, sz/2);
-    colors.forEach((c, i) => wg.addColorStop(i / (colors.length - 1), c));
-    X.fillStyle = wg;
-  } else {
-    X.fillStyle = colors[0];
-  }
-  X.beginPath();
-  X.moveTo(0, 0);
-  X.bezierCurveTo(-sz * 0.8, -sz, -sz * 1.2, -sz * 0.3, -sz, sz * 0.2);
-  X.bezierCurveTo(-sz * 0.6, sz * 0.5, -sz * 0.2, sz * 0.3, 0, 0);
-  X.fill();
-  // Wing pattern
-  X.fillStyle = colors.length > 1 ? colors[1] : 'rgba(255,255,255,0.3)';
-  X.beginPath(); X.arc(-sz * 0.5, -sz * 0.2, sz * 0.25, 0, Math.PI * 2); X.fill();
-  X.fillStyle = 'rgba(255,255,255,0.4)';
-  X.beginPath(); X.arc(-sz * 0.3, -sz * 0.5, sz * 0.15, 0, Math.PI * 2); X.fill();
-  X.restore();
-
-  // Right wing
-  X.save();
-  X.scale(-Math.cos(wingAngle), 1);
-  if (colors.length > 2) {
-    const wg = X.createLinearGradient(-sz, -sz/2, 0, sz/2);
-    colors.forEach((c, i) => wg.addColorStop(i / (colors.length - 1), c));
-    X.fillStyle = wg;
-  } else {
-    X.fillStyle = colors[0];
-  }
-  X.beginPath();
-  X.moveTo(0, 0);
-  X.bezierCurveTo(-sz * 0.8, -sz, -sz * 1.2, -sz * 0.3, -sz, sz * 0.2);
-  X.bezierCurveTo(-sz * 0.6, sz * 0.5, -sz * 0.2, sz * 0.3, 0, 0);
-  X.fill();
-  X.fillStyle = colors.length > 1 ? colors[1] : 'rgba(255,255,255,0.3)';
-  X.beginPath(); X.arc(-sz * 0.5, -sz * 0.2, sz * 0.25, 0, Math.PI * 2); X.fill();
-  X.fillStyle = 'rgba(255,255,255,0.4)';
-  X.beginPath(); X.arc(-sz * 0.3, -sz * 0.5, sz * 0.15, 0, Math.PI * 2); X.fill();
-  X.restore();
+  if (b.flash > 0) X.globalAlpha = 0.5 + b.flash * 0.5;
 
   // Body
-  X.fillStyle = '#5d4037';
-  X.beginPath();
-  X.ellipse(0, 0, 2, sz * 0.35, 0, 0, Math.PI * 2);
-  X.fill();
+  X.fillStyle = isGold ? '#ffc107' : '#f44336';
+  X.beginPath(); X.ellipse(0, 0, sz, sz * 0.8, 0, 0, Math.PI * 2); X.fill();
+
+  // Shell line
+  X.strokeStyle = '#333'; X.lineWidth = 1.5;
+  X.beginPath(); X.moveTo(0, -sz * 0.8); X.lineTo(0, sz * 0.8); X.stroke();
+
+  // Spots
+  X.fillStyle = '#333';
+  const spots = [[-4,-3],[4,-2],[-3,4],[5,3],[-5,0],[3,-5]];
+  spots.forEach(([sx,sy]) => {
+    X.beginPath(); X.arc(sx * b.scale, sy * b.scale, 2, 0, Math.PI*2); X.fill();
+  });
 
   // Head
-  X.fillStyle = '#4e342e';
-  X.beginPath(); X.arc(0, -sz * 0.35, 2.5, 0, Math.PI * 2); X.fill();
+  X.fillStyle = '#333';
+  X.beginPath(); X.arc(0, -sz * 0.75, sz * 0.35, 0, Math.PI * 2); X.fill();
+
+  // Eyes
+  X.fillStyle = '#fff';
+  X.beginPath(); X.arc(-2.5, -sz * 0.8, 1.5, 0, Math.PI * 2); X.fill();
+  X.beginPath(); X.arc(2.5, -sz * 0.8, 1.5, 0, Math.PI * 2); X.fill();
+  X.fillStyle = '#333';
+  X.beginPath(); X.arc(-2.5, -sz * 0.8, 0.7, 0, Math.PI * 2); X.fill();
+  X.beginPath(); X.arc(2.5, -sz * 0.8, 0.7, 0, Math.PI * 2); X.fill();
 
   // Antennae
-  X.strokeStyle = '#4e342e'; X.lineWidth = 1;
-  X.beginPath();
-  X.moveTo(-1, -sz * 0.4);
-  X.quadraticCurveTo(-6, -sz * 0.7, -4, -sz * 0.8);
-  X.stroke();
-  X.beginPath();
-  X.moveTo(1, -sz * 0.4);
-  X.quadraticCurveTo(6, -sz * 0.7, 4, -sz * 0.8);
-  X.stroke();
-  // Tips
-  X.fillStyle = colors[0];
-  X.beginPath(); X.arc(-4, -sz * 0.8, 1.5, 0, Math.PI * 2); X.fill();
-  X.beginPath(); X.arc(4, -sz * 0.8, 1.5, 0, Math.PI * 2); X.fill();
+  X.strokeStyle = '#333'; X.lineWidth = 1;
+  X.beginPath(); X.moveTo(-2, -sz*.9); X.quadraticCurveTo(-5, -sz*1.3, -3, -sz*1.4); X.stroke();
+  X.beginPath(); X.moveTo(2, -sz*.9); X.quadraticCurveTo(5, -sz*1.3, 3, -sz*1.4); X.stroke();
+
+  // Legs (animated)
+  X.strokeStyle = '#333'; X.lineWidth = 1;
+  const legAnim = Math.sin(t * 6) * 2;
+  for (const side of [-1, 1]) {
+    for (let i = 0; i < 3; i++) {
+      const ly = -3 + i * 4;
+      X.beginPath();
+      X.moveTo(side * sz * 0.7, ly);
+      X.lineTo(side * (sz + 3 + Math.sin(t * 6 + i) * legAnim), ly + 2);
+      X.stroke();
+    }
+  }
+
+  // Points badge
+  X.font = 'bold 10px sans-serif'; X.textAlign = 'center';
+  X.fillStyle = '#fff'; X.strokeStyle = 'rgba(0,0,0,0.4)'; X.lineWidth = 2;
+  X.strokeText(`+${b.type.points}`, 0, sz + 10);
+  X.fillText(`+${b.type.points}`, 0, sz + 10);
 
   X.globalAlpha = 1;
   X.restore();
@@ -544,142 +694,89 @@ function drawPrincess() {
   X.save();
   X.translate(px + sway, py);
 
-  // Shadow
   X.fillStyle = 'rgba(0,0,0,0.08)';
   X.beginPath(); X.ellipse(0, 10, 25, 6, 0, 0, Math.PI * 2); X.fill();
 
-  // Wings (behind)
   if (wings && wings.id !== 'wings_none') {
     X.globalAlpha = 0.6;
     const wf = Math.sin(t * 3) * 0.2;
     for (const dir of [-1, 1]) {
       X.fillStyle = wings.color || '#ce93d8';
-      X.save();
-      X.scale(dir, 1);
-      X.beginPath();
-      X.moveTo(0, -35);
-      X.bezierCurveTo(-20 - wf * 20, -55, -35, -30, -25, -15);
-      X.bezierCurveTo(-15, -5, -5, -15, 0, -35);
-      X.fill();
+      X.save(); X.scale(dir, 1);
+      X.beginPath(); X.moveTo(0, -35);
+      X.bezierCurveTo(-20-wf*20, -55, -35, -30, -25, -15);
+      X.bezierCurveTo(-15, -5, -5, -15, 0, -35); X.fill();
       X.restore();
     }
     X.globalAlpha = 1;
   }
 
-  // Dress
-  let dressColor = dress ? dress.color : '#e91e63';
-  if (dressColor === 'rainbow') {
+  let dc = dress ? dress.color : '#e91e63';
+  if (dc === 'rainbow') {
     const rg = X.createLinearGradient(-20, -20, 20, 10);
-    ['#e91e63','#ff9800','#ffeb3b','#4caf50','#2196f3','#9c27b0'].forEach((c,i) =>
-      rg.addColorStop(i/5, c));
+    ['#e91e63','#ff9800','#ffeb3b','#4caf50','#2196f3','#9c27b0'].forEach((c,i) => rg.addColorStop(i/5, c));
     X.fillStyle = rg;
-  } else {
-    X.fillStyle = dressColor;
-  }
-  // Skirt
-  X.beginPath();
-  X.moveTo(-6, -20);
-  X.quadraticCurveTo(-28, 12, -22, 10);
-  X.lineTo(22, 10);
-  X.quadraticCurveTo(28, 12, 6, -20);
-  X.fill();
-  // Skirt ruffle
-  X.fillStyle = 'rgba(255,255,255,0.2)';
-  for (let i = -20; i < 20; i += 8) {
-    X.beginPath();
-    X.arc(i, 8 + Math.sin(i + t * 2) * 2, 5, Math.PI, 0);
-    X.fill();
-  }
+  } else { X.fillStyle = dc; }
 
-  // Bodice
-  if (dressColor === 'rainbow') {
-    const rg = X.createLinearGradient(-8, -35, 8, -20);
-    ['#e91e63','#ff9800','#ffeb3b'].forEach((c,i) => rg.addColorStop(i/2, c));
-    X.fillStyle = rg;
-  } else {
-    X.fillStyle = dressColor;
-  }
+  X.beginPath(); X.moveTo(-6,-20); X.quadraticCurveTo(-28,12,-22,10); X.lineTo(22,10); X.quadraticCurveTo(28,12,6,-20); X.fill();
+  X.fillStyle = 'rgba(255,255,255,0.2)';
+  for (let i = -20; i < 20; i += 8) { X.beginPath(); X.arc(i, 8+Math.sin(i+t*2)*2, 5, Math.PI, 0); X.fill(); }
+
+  if (dc === 'rainbow') {
+    const rg = X.createLinearGradient(-8,-35,8,-20);
+    ['#e91e63','#ff9800','#ffeb3b'].forEach((c,i)=>rg.addColorStop(i/2,c)); X.fillStyle = rg;
+  } else { X.fillStyle = dc; }
   X.fillRect(-8, -38, 16, 20);
 
-  // Skin - arms
+  X.fillStyle = '#FDBCB4'; X.strokeStyle = '#FDBCB4'; X.lineWidth = 3;
+  X.beginPath(); X.moveTo(-8,-32); X.lineTo(-16,-18); X.stroke();
+  X.beginPath(); X.moveTo(8,-32); X.lineTo(16,-18); X.stroke();
   X.fillStyle = '#FDBCB4';
-  X.strokeStyle = '#FDBCB4'; X.lineWidth = 3;
-  X.beginPath(); X.moveTo(-8, -32); X.lineTo(-16, -18); X.stroke();
-  X.beginPath(); X.moveTo(8, -32); X.lineTo(16, -18); X.stroke();
+  X.beginPath(); X.arc(-16,-18, 3, 0, Math.PI*2); X.fill();
+  X.beginPath(); X.arc(16,-18, 3, 0, Math.PI*2); X.fill();
 
-  // Hands
-  X.fillStyle = '#FDBCB4';
-  X.beginPath(); X.arc(-16, -18, 3, 0, Math.PI * 2); X.fill();
-  X.beginPath(); X.arc(16, -18, 3, 0, Math.PI * 2); X.fill();
-
-  // Wand
   if (wand && wand.id !== 'wand_none') {
     X.strokeStyle = '#8d6e63'; X.lineWidth = 2;
-    X.beginPath(); X.moveTo(16, -18); X.lineTo(26, -40); X.stroke();
-    // Wand tip
-    X.font = '14px sans-serif';
-    X.textAlign = 'center';
+    X.beginPath(); X.moveTo(16,-18); X.lineTo(26,-40); X.stroke();
+    X.font = '14px sans-serif'; X.textAlign = 'center';
     X.fillText(wand.icon, 26, -42);
-    // Sparkle
     X.fillStyle = wand.color;
-    const sp = Math.sin(t * 5);
-    X.globalAlpha = 0.5 + sp * 0.3;
-    X.beginPath(); X.arc(26 + sp * 3, -44, 2, 0, Math.PI * 2); X.fill();
+    const sp = Math.sin(t*5);
+    X.globalAlpha = 0.5+sp*.3;
+    X.beginPath(); X.arc(26+sp*3,-44,2,0,Math.PI*2); X.fill();
     X.globalAlpha = 1;
   }
 
-  // Head
-  X.fillStyle = '#FDBCB4';
-  X.beginPath(); X.arc(0, -46, 10, 0, Math.PI * 2); X.fill();
-
-  // Hair
+  X.fillStyle = '#FDBCB4'; X.beginPath(); X.arc(0,-46,10,0,Math.PI*2); X.fill();
+  X.fillStyle = '#5d4037'; X.beginPath(); X.arc(0,-50,11,Math.PI*.8,Math.PI*2.2); X.fill();
   X.fillStyle = '#5d4037';
-  X.beginPath();
-  X.arc(0, -50, 11, Math.PI * 0.8, Math.PI * 2.2);
-  X.fill();
-  // Side hair
-  X.fillStyle = '#5d4037';
-  X.beginPath();
-  X.ellipse(-10, -42, 4, 10, 0.2, 0, Math.PI * 2); X.fill();
-  X.beginPath();
-  X.ellipse(10, -42, 4, 10, -0.2, 0, Math.PI * 2); X.fill();
+  X.beginPath(); X.ellipse(-10,-42,4,10,.2,0,Math.PI*2); X.fill();
+  X.beginPath(); X.ellipse(10,-42,4,10,-.2,0,Math.PI*2); X.fill();
 
-  // Eyes
   X.fillStyle = '#333';
-  X.beginPath(); X.arc(-4, -47, 1.8, 0, Math.PI * 2); X.fill();
-  X.beginPath(); X.arc(4, -47, 1.8, 0, Math.PI * 2); X.fill();
-  // Eye sparkle
+  X.beginPath(); X.arc(-4,-47,1.8,0,Math.PI*2); X.fill();
+  X.beginPath(); X.arc(4,-47,1.8,0,Math.PI*2); X.fill();
   X.fillStyle = '#fff';
-  X.beginPath(); X.arc(-3.2, -47.8, 0.7, 0, Math.PI * 2); X.fill();
-  X.beginPath(); X.arc(4.8, -47.8, 0.7, 0, Math.PI * 2); X.fill();
+  X.beginPath(); X.arc(-3.2,-47.8,.7,0,Math.PI*2); X.fill();
+  X.beginPath(); X.arc(4.8,-47.8,.7,0,Math.PI*2); X.fill();
 
-  // Blush
   X.fillStyle = 'rgba(233,30,99,0.2)';
-  X.beginPath(); X.ellipse(-7, -44, 3, 2, 0, 0, Math.PI * 2); X.fill();
-  X.beginPath(); X.ellipse(7, -44, 3, 2, 0, 0, Math.PI * 2); X.fill();
+  X.beginPath(); X.ellipse(-7,-44,3,2,0,0,Math.PI*2); X.fill();
+  X.beginPath(); X.ellipse(7,-44,3,2,0,0,Math.PI*2); X.fill();
 
-  // Smile
   X.strokeStyle = '#ad1457'; X.lineWidth = 1;
-  X.beginPath(); X.arc(0, -44, 3, 0.1, Math.PI - 0.1); X.stroke();
+  X.beginPath(); X.arc(0,-44,3,.1,Math.PI-.1); X.stroke();
 
-  // Crown
   if (crown && crown.id !== 'crown_none') {
     X.fillStyle = crown.color;
-    X.beginPath();
-    X.moveTo(-8, -56);
-    X.lineTo(-6, -63); X.lineTo(-3, -58);
-    X.lineTo(0, -66); X.lineTo(3, -58);
-    X.lineTo(6, -63); X.lineTo(8, -56);
-    X.fill();
-    // Gems
+    X.beginPath(); X.moveTo(-8,-56); X.lineTo(-6,-63); X.lineTo(-3,-58); X.lineTo(0,-66); X.lineTo(3,-58); X.lineTo(6,-63); X.lineTo(8,-56); X.fill();
     X.fillStyle = crown.id === 'crown_diamond' ? '#e0f7fa' : '#e91e63';
-    X.beginPath(); X.arc(0, -59, 1.5, 0, Math.PI * 2); X.fill();
+    X.beginPath(); X.arc(0,-59,1.5,0,Math.PI*2); X.fill();
   }
 
-  // Feet
-  X.fillStyle = dressColor === 'rainbow' ? '#e91e63' : dressColor;
-  X.beginPath(); X.ellipse(-6, 12, 5, 3, 0, 0, Math.PI * 2); X.fill();
-  X.beginPath(); X.ellipse(6, 12, 5, 3, 0, 0, Math.PI * 2); X.fill();
+  X.fillStyle = dc === 'rainbow' ? '#e91e63' : (dc || '#e91e63');
+  X.beginPath(); X.ellipse(-6,12,5,3,0,0,Math.PI*2); X.fill();
+  X.beginPath(); X.ellipse(6,12,5,3,0,0,Math.PI*2); X.fill();
 
   X.restore();
 }
@@ -688,17 +785,11 @@ function drawParticles() {
   G.particles.forEach(p => {
     X.globalAlpha = p.life;
     if (p.type === 'heart') {
-      X.font = `${p.size}px sans-serif`;
-      X.textAlign = 'center';
+      X.font = `${p.size}px sans-serif`; X.textAlign = 'center';
       X.fillText(p.icon, p.x, p.y);
     } else if (p.type === 'burst') {
       X.fillStyle = p.color;
-      X.beginPath(); X.arc(p.x, p.y, p.size, 0, Math.PI * 2); X.fill();
-    } else if (p.type === 'star') {
-      X.fillStyle = p.color;
-      X.beginPath();
-      X.fillRect(p.x - p.size/2, p.y - 0.5, p.size, 1);
-      X.fillRect(p.x - 0.5, p.y - p.size/2, 1, p.size);
+      X.beginPath(); X.arc(p.x, p.y, p.size, 0, Math.PI*2); X.fill();
     }
   });
   X.globalAlpha = 1;
@@ -707,11 +798,8 @@ function drawParticles() {
 function drawFloatingTexts() {
   G.floatingTexts.forEach(ft => {
     X.globalAlpha = ft.life;
-    X.font = `bold ${ft.size}px sans-serif`;
-    X.textAlign = 'center';
-    X.fillStyle = ft.color;
-    X.strokeStyle = 'rgba(255,255,255,0.7)';
-    X.lineWidth = 3;
+    X.font = `bold ${ft.size}px sans-serif`; X.textAlign = 'center';
+    X.fillStyle = ft.color; X.strokeStyle = 'rgba(255,255,255,0.7)'; X.lineWidth = 3;
     X.strokeText(ft.text, ft.x, ft.y);
     X.fillText(ft.text, ft.x, ft.y);
   });
@@ -722,22 +810,13 @@ function drawFloatingTexts() {
 function update(dt) {
   if (G.phase !== 'playing') return;
 
-  // Timer
   G.timer -= dt;
-  if (G.timer <= 0) {
-    G.timer = 0;
-    endRound();
-    return;
-  }
+  if (G.timer <= 0) { G.timer = 0; endRound(); return; }
 
-  // Combo decay
-  if (G.comboTimer > 0) {
-    G.comboTimer -= dt;
-    if (G.comboTimer <= 0) G.combo = 0;
-  }
+  if (G.comboTimer > 0) { G.comboTimer -= dt; if (G.comboTimer <= 0) G.combo = 0; }
 
-  // Butterflies
-  G.butterflies.forEach(b => {
+  // Creatures
+  G.creatures.forEach(b => {
     if (!b.alive) return;
     b.turnTimer -= dt;
     if (b.turnTimer <= 0) {
@@ -745,37 +824,51 @@ function update(dt) {
       b.turnTimer = 0.8 + Math.random() * 1.5;
     }
     b.wobble += dt * 3;
-    const wobbleOffset = Math.sin(b.wobble) * 15;
     const spd = b.baseSpeed * b.type.speed;
     b.x += Math.cos(b.angle) * spd * dt + Math.sin(b.wobble * 0.7) * dt * 10;
     b.y += Math.sin(b.angle) * spd * dt * 0.5 + Math.cos(b.wobble) * dt * 15;
 
-    // Keep in bounds
     const margin = 40;
-    if (b.x < margin) { b.x = margin; b.angle = Math.random() * Math.PI - Math.PI / 2; }
-    if (b.x > C.width - margin) { b.x = C.width - margin; b.angle = Math.PI + Math.random() * Math.PI - Math.PI / 2; }
+    if (b.x < margin) { b.x = margin; b.angle = Math.random() * Math.PI - Math.PI/2; }
+    if (b.x > C.width - margin) { b.x = C.width - margin; b.angle = Math.PI + Math.random() * Math.PI - Math.PI/2; }
     if (b.y < 70) { b.y = 70; b.angle = Math.abs(b.angle); }
-    if (b.y > C.height * 0.65) { b.y = C.height * 0.65; b.angle = -Math.abs(b.angle); }
+    if (b.y > C.height * 0.6) { b.y = C.height * 0.6; b.angle = -Math.abs(b.angle); }
 
     b.wingPhase += dt * 8;
     if (b.flash > 0) b.flash -= dt * 3;
   });
 
-  // Spawn new butterflies periodically
-  if (G.butterflies.filter(b => b.alive).length < 5 + Math.floor(G.timer / 10)) {
-    spawnButterfly();
+  // Spawn creatures
+  if (G.creatures.filter(b => b.alive).length < 6 + Math.floor((G.maxTime - G.timer) / 8)) {
+    spawnCreature();
   }
+
+  // Spawn magic flowers periodically
+  G._mfTimer = (G._mfTimer || 0) + dt;
+  if (G._mfTimer > 3 + Math.random() * 2) {
+    G._mfTimer = 0;
+    spawnMagicFlower();
+  }
+
+  // Magic flowers
+  G.magicFlowers.forEach(mf => {
+    mf.life -= dt;
+    if (mf.growing) {
+      mf.scale = Math.min(mf.maxScale, mf.scale + dt * 3);
+      if (mf.scale >= mf.maxScale) mf.growing = false;
+    }
+    if (mf.life < 0.5) mf.scale = Math.max(0, mf.scale - dt * 2);
+  });
+  G.magicFlowers = G.magicFlowers.filter(mf => mf.life > 0 && mf.scale > 0);
 
   // Particles
   G.particles.forEach(p => {
-    p.x += p.vx * dt;
-    p.y += p.vy * dt;
+    p.x += p.vx * dt; p.y += p.vy * dt;
     if (p.type !== 'heart') p.vy += 50 * dt;
     p.life -= dt * 1.5;
   });
   G.particles = G.particles.filter(p => p.life > 0);
 
-  // Floating texts
   G.floatingTexts.forEach(ft => { ft.y -= 40 * dt; ft.life -= dt; });
   G.floatingTexts = G.floatingTexts.filter(ft => ft.life > 0);
 
@@ -786,63 +879,95 @@ function update(dt) {
 function tryCatch(mx, my) {
   if (G.phase !== 'playing') return;
 
-  let caught = null;
-  let bestDist = 50; // tap radius
-  G.butterflies.forEach(b => {
+  // Check magic flowers first
+  for (let i = G.magicFlowers.length - 1; i >= 0; i--) {
+    const mf = G.magicFlowers[i];
+    if (Math.hypot(mf.x - mx, mf.y - my) < 30 * mf.scale) {
+      G.score += mf.points;
+      G.flowersCaught++;
+      G.combo++; G.comboTimer = 1.5;
+      const pts = mf.points * Math.max(1, G.combo);
+      G.score += pts - mf.points; // adjust for combo
+
+      // Petal burst
+      for (let j = 0; j < 10; j++) {
+        const a = (j / 10) * Math.PI * 2;
+        G.particles.push({
+          x: mf.x, y: mf.y, vx: Math.cos(a) * 50, vy: Math.sin(a) * 50 - 20,
+          life: 0.8, size: 4, color: mf.color, type: 'burst',
+        });
+      }
+      // Icons floating
+      ['🌸','✨','💫'].forEach((icon, k) => {
+        G.particles.push({
+          x: mf.x + (Math.random() - 0.5) * 30, y: mf.y,
+          vx: (Math.random()-.5) * 15, vy: -30 - Math.random() * 20,
+          life: 1.2, size: 20, icon, type: 'heart',
+        });
+      });
+
+      G.floatingTexts.push({
+        x: mf.x, y: mf.y - 25,
+        text: `+${pts} ${mf.icon}`, color: mf.color,
+        life: 1.2, size: 20,
+      });
+
+      sfxFlower();
+      G.magicFlowers.splice(i, 1);
+      updateHUD();
+      return;
+    }
+  }
+
+  // Check creatures
+  let caught = null, bestDist = 50;
+  G.creatures.forEach(b => {
     if (!b.alive) return;
     const d = Math.hypot(b.x - mx, b.y - my);
-    const hitR = 25 * b.scale;
+    const hitR = (b.type.kind === 'ladybug' ? 20 : 25) * b.scale;
     if (d < hitR && d < bestDist) { bestDist = d; caught = b; }
   });
 
   if (caught) {
     caught.alive = false;
     G.caught++;
-    G.combo++;
-    G.comboTimer = 1.5;
+    if (caught.type.kind === 'ladybug') G.bugsCaught++;
+    G.combo++; G.comboTimer = 1.5;
 
     const pts = caught.type.points * Math.max(1, G.combo);
     G.score += pts;
 
-    // Particles — burst of color
+    // Burst particles
     for (let i = 0; i < 12; i++) {
       const a = (i / 12) * Math.PI * 2;
       G.particles.push({
         x: caught.x, y: caught.y,
         vx: Math.cos(a) * (60 + Math.random() * 40),
         vy: Math.sin(a) * (60 + Math.random() * 40),
-        life: 0.6 + Math.random() * 0.4,
-        size: 3 + Math.random() * 3,
+        life: 0.6 + Math.random() * 0.4, size: 3 + Math.random() * 3,
         color: caught.type.colors[Math.floor(Math.random() * caught.type.colors.length)],
         type: 'burst',
       });
     }
 
-    // Hearts & stars floating up
-    const icons = ['💖', '✨', '⭐', '🌟'];
+    const icons = caught.type.kind === 'ladybug' ? ['🐞','⭐','✨'] : ['💖','✨','⭐','🌟'];
     for (let i = 0; i < 3; i++) {
       G.particles.push({
-        x: caught.x + (Math.random() - 0.5) * 30,
-        y: caught.y,
-        vx: (Math.random() - 0.5) * 20,
-        vy: -40 - Math.random() * 30,
-        life: 1 + Math.random() * 0.5,
-        size: 16 + Math.random() * 8,
-        icon: icons[Math.floor(Math.random() * icons.length)],
-        type: 'heart',
+        x: caught.x + (Math.random()-.5)*30, y: caught.y,
+        vx: (Math.random()-.5)*20, vy: -40 - Math.random()*30,
+        life: 1+Math.random()*.5, size: 16+Math.random()*8,
+        icon: icons[Math.floor(Math.random()*icons.length)], type: 'heart',
       });
     }
 
-    // Floating text
     let text = `+${pts}`;
     if (G.combo > 1) text += ` x${G.combo}`;
     G.floatingTexts.push({
-      x: caught.x, y: caught.y - 20,
-      text, color: caught.type.points >= 5 ? '#ff6f00' : '#e91e63',
+      x: caught.x, y: caught.y - 20, text,
+      color: caught.type.points >= 5 ? '#ff6f00' : caught.type.kind === 'ladybug' ? '#f44336' : '#e91e63',
       life: 1.2, size: 18 + Math.min(G.combo * 2, 12),
     });
 
-    // Combo display
     if (G.combo >= 3) {
       const cd = document.getElementById('combo-display');
       cd.textContent = G.combo >= 5 ? `🔥 x${G.combo} COMBO! 🔥` : `x${G.combo} Combo!`;
@@ -850,15 +975,14 @@ function tryCatch(mx, my) {
       setTimeout(() => cd.style.opacity = 0, 600);
     }
 
-    // Sound
-    if (caught.type.points >= 5) sfxSpecial();
+    if (caught.type.kind === 'ladybug') sfxLadybug();
+    else if (caught.type.points >= 5) sfxSpecial();
     else sfxCatch();
 
-    // Remove and respawn
     setTimeout(() => {
-      const idx = G.butterflies.indexOf(caught);
-      if (idx >= 0) G.butterflies.splice(idx, 1);
-      if (G.phase === 'playing') spawnButterfly();
+      const idx = G.creatures.indexOf(caught);
+      if (idx >= 0) G.creatures.splice(idx, 1);
+      if (G.phase === 'playing') spawnCreature();
     }, 100);
   }
 }
@@ -869,13 +993,16 @@ function endRound() {
   G.totalCoins += earned;
 
   document.getElementById('go-caught').textContent = G.caught;
+  document.getElementById('go-flowers').textContent = G.flowersCaught;
+  document.getElementById('go-bugs').textContent = G.bugsCaught;
   document.getElementById('go-score').textContent = G.score;
   document.getElementById('go-coins').textContent = earned;
 
-  if (G.caught >= 20) {
+  const total = G.caught + G.flowersCaught + G.bugsCaught;
+  if (total >= 25) {
     document.getElementById('go-icon').textContent = '🏆';
     document.getElementById('go-title').textContent = 'Increible!';
-  } else if (G.caught >= 10) {
+  } else if (total >= 15) {
     document.getElementById('go-icon').textContent = '🎉';
     document.getElementById('go-title').textContent = 'Muy bien!';
   } else {
@@ -894,30 +1021,31 @@ function openCloset() {
   document.getElementById('closet-coins').textContent = G.totalCoins;
 
   const categories = [
-    { cat: 'dress', label: '👗 Vestidos' },
-    { cat: 'crown', label: '👑 Coronas' },
-    { cat: 'wand', label: '🪄 Varitas' },
-    { cat: 'wings', label: '🧚 Alas' },
+    { cat: 'dress', label: '👗 Vestidos', items: ITEMS },
+    { cat: 'crown', label: '👑 Coronas', items: ITEMS },
+    { cat: 'wand', label: '🪄 Varitas', items: ITEMS },
+    { cat: 'wings', label: '🧚 Alas', items: ITEMS },
+    { cat: 'garden', label: '🌳 Jardines', items: THEMES },
   ];
 
-  categories.forEach(({ cat, label }) => {
+  categories.forEach(({ cat, label, items }) => {
     const section = document.createElement('div');
     section.className = 'closet-section';
     section.innerHTML = `<h3>${label}</h3>`;
     const grid = document.createElement('div');
     grid.className = 'closet-grid';
 
-    ITEMS.filter(i => i.cat === cat).forEach(item => {
+    items.filter(i => i.cat === cat).forEach(item => {
       const div = document.createElement('div');
       const isActive = item.active;
       const isLocked = !item.owned;
       div.className = 'closet-item' + (isActive ? ' active' : '') + (isLocked ? ' locked' : '');
 
       let iconDisplay = item.icon;
-      if (item.cat === 'dress' && item.color !== 'rainbow') {
-        iconDisplay = `<span style="color:${item.color}">${item.icon}</span>`;
-      } else if (item.cat === 'dress') {
+      if (item.cat === 'dress' && item.color === 'rainbow') {
         iconDisplay = `<span style="background:linear-gradient(90deg,red,orange,yellow,green,blue,purple);-webkit-background-clip:text;-webkit-text-fill-color:transparent">${item.icon}</span>`;
+      } else if (item.cat === 'dress' && item.color) {
+        iconDisplay = `<span style="color:${item.color}">${item.icon}</span>`;
       }
 
       div.innerHTML = `
@@ -933,14 +1061,12 @@ function openCloset() {
             G.totalCoins -= item.cost;
             item.owned = true;
             sfxUnlock();
-            // Activate it
-            ITEMS.filter(i => i.cat === cat).forEach(i => i.active = false);
+            items.filter(i => i.cat === cat).forEach(i => i.active = false);
             item.active = true;
-            openCloset();
-            updateHUD();
+            openCloset(); updateHUD();
           }
         } else if (!isActive) {
-          ITEMS.filter(i => i.cat === cat).forEach(i => i.active = false);
+          items.filter(i => i.cat === cat).forEach(i => i.active = false);
           item.active = true;
           sfxCatch();
           openCloset();
@@ -979,9 +1105,11 @@ function loop(ts) {
   update(dt);
 
   drawBackground();
+  drawSnowflakes(dt);
   drawFlowers();
+  drawMagicFlowers();
   drawSparkles();
-  G.butterflies.forEach(b => { if (b.alive) drawButterfly(b); });
+  G.creatures.forEach(b => { if (b.alive) drawCreature(b); });
   drawPrincess();
   drawParticles();
   drawFloatingTexts();
@@ -994,16 +1122,10 @@ requestAnimationFrame(loop);
 function handleInput(e) {
   e.preventDefault();
   let x, y;
-  if (e.touches) {
-    x = e.touches[0].clientX;
-    y = e.touches[0].clientY;
-  } else {
-    x = e.clientX;
-    y = e.clientY;
-  }
+  if (e.touches) { x = e.touches[0].clientX; y = e.touches[0].clientY; }
+  else { x = e.clientX; y = e.clientY; }
   tryCatch(x, y);
 }
-
 C.addEventListener('mousedown', handleInput);
 C.addEventListener('touchstart', handleInput, { passive: false });
 </script>
